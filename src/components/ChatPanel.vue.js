@@ -1,8 +1,10 @@
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import { useAgentStore } from "../stores/agent";
+import TracePanel from "./TracePanel.vue";
 const store = useAgentStore();
 const input = ref("");
+const traceVisible = ref(false);
 function formatTime(value) {
     return new Date(value).toLocaleString();
 }
@@ -41,7 +43,6 @@ const __VLS_2 = __VLS_1({
     shadow: "never",
     ...{ class: "panel-card" },
 }, ...__VLS_functionalComponentArgsRest(__VLS_1));
-var __VLS_4 = {};
 __VLS_3.slots.default;
 {
     const { header: __VLS_thisSlot } = __VLS_3.slots;
@@ -52,50 +53,71 @@ __VLS_3.slots.default;
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
         ...{ class: "actions" },
     });
-    const __VLS_5 = {}.ElButton;
+    const __VLS_4 = {}.ElButton;
     /** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
     // @ts-ignore
-    const __VLS_6 = __VLS_asFunctionalComponent(__VLS_5, new __VLS_5({
+    const __VLS_5 = __VLS_asFunctionalComponent(__VLS_4, new __VLS_4({
         ...{ 'onClick': {} },
         size: "small",
     }));
-    const __VLS_7 = __VLS_6({
+    const __VLS_6 = __VLS_5({
         ...{ 'onClick': {} },
         size: "small",
-    }, ...__VLS_functionalComponentArgsRest(__VLS_6));
+    }, ...__VLS_functionalComponentArgsRest(__VLS_5));
+    let __VLS_8;
     let __VLS_9;
     let __VLS_10;
-    let __VLS_11;
-    const __VLS_12 = {
+    const __VLS_11 = {
         onClick: (__VLS_ctx.store.clearConversation)
     };
-    __VLS_8.slots.default;
-    var __VLS_8;
-    const __VLS_13 = {}.ElButton;
+    __VLS_7.slots.default;
+    var __VLS_7;
+    const __VLS_12 = {}.ElButton;
     /** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
     // @ts-ignore
-    const __VLS_14 = __VLS_asFunctionalComponent(__VLS_13, new __VLS_13({
+    const __VLS_13 = __VLS_asFunctionalComponent(__VLS_12, new __VLS_12({
+        ...{ 'onClick': {} },
+        size: "small",
+    }));
+    const __VLS_14 = __VLS_13({
+        ...{ 'onClick': {} },
+        size: "small",
+    }, ...__VLS_functionalComponentArgsRest(__VLS_13));
+    let __VLS_16;
+    let __VLS_17;
+    let __VLS_18;
+    const __VLS_19 = {
+        onClick: (...[$event]) => {
+            __VLS_ctx.traceVisible = true;
+        }
+    };
+    __VLS_15.slots.default;
+    var __VLS_15;
+    const __VLS_20 = {}.ElButton;
+    /** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
+    // @ts-ignore
+    const __VLS_21 = __VLS_asFunctionalComponent(__VLS_20, new __VLS_20({
         ...{ 'onClick': {} },
         size: "small",
         type: "danger",
         plain: true,
         disabled: (!__VLS_ctx.store.running),
     }));
-    const __VLS_15 = __VLS_14({
+    const __VLS_22 = __VLS_21({
         ...{ 'onClick': {} },
         size: "small",
         type: "danger",
         plain: true,
         disabled: (!__VLS_ctx.store.running),
-    }, ...__VLS_functionalComponentArgsRest(__VLS_14));
-    let __VLS_17;
-    let __VLS_18;
-    let __VLS_19;
-    const __VLS_20 = {
+    }, ...__VLS_functionalComponentArgsRest(__VLS_21));
+    let __VLS_24;
+    let __VLS_25;
+    let __VLS_26;
+    const __VLS_27 = {
         onClick: (__VLS_ctx.store.stopStream)
     };
-    __VLS_16.slots.default;
-    var __VLS_16;
+    __VLS_23.slots.default;
+    var __VLS_23;
 }
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "message-list" },
@@ -131,52 +153,73 @@ if (__VLS_ctx.store.assistantBuffer) {
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "composer" },
 });
-const __VLS_21 = {}.ElInput;
+const __VLS_28 = {}.ElInput;
 /** @type {[typeof __VLS_components.ElInput, typeof __VLS_components.elInput, ]} */ ;
 // @ts-ignore
-const __VLS_22 = __VLS_asFunctionalComponent(__VLS_21, new __VLS_21({
+const __VLS_29 = __VLS_asFunctionalComponent(__VLS_28, new __VLS_28({
     ...{ 'onKeydown': {} },
     modelValue: (__VLS_ctx.input),
     type: "textarea",
     rows: (3),
     placeholder: "输入消息并回车发送（Shift+Enter换行）",
 }));
-const __VLS_23 = __VLS_22({
+const __VLS_30 = __VLS_29({
     ...{ 'onKeydown': {} },
     modelValue: (__VLS_ctx.input),
     type: "textarea",
     rows: (3),
     placeholder: "输入消息并回车发送（Shift+Enter换行）",
-}, ...__VLS_functionalComponentArgsRest(__VLS_22));
-let __VLS_25;
-let __VLS_26;
-let __VLS_27;
-const __VLS_28 = {
-    onKeydown: (__VLS_ctx.onKeydown)
-};
-var __VLS_24;
-const __VLS_29 = {}.ElButton;
-/** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
-// @ts-ignore
-const __VLS_30 = __VLS_asFunctionalComponent(__VLS_29, new __VLS_29({
-    ...{ 'onClick': {} },
-    type: "primary",
-    loading: (__VLS_ctx.store.running),
-}));
-const __VLS_31 = __VLS_30({
-    ...{ 'onClick': {} },
-    type: "primary",
-    loading: (__VLS_ctx.store.running),
-}, ...__VLS_functionalComponentArgsRest(__VLS_30));
+}, ...__VLS_functionalComponentArgsRest(__VLS_29));
+let __VLS_32;
 let __VLS_33;
 let __VLS_34;
-let __VLS_35;
-const __VLS_36 = {
+const __VLS_35 = {
+    onKeydown: (__VLS_ctx.onKeydown)
+};
+var __VLS_31;
+const __VLS_36 = {}.ElButton;
+/** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
+// @ts-ignore
+const __VLS_37 = __VLS_asFunctionalComponent(__VLS_36, new __VLS_36({
+    ...{ 'onClick': {} },
+    type: "primary",
+    loading: (__VLS_ctx.store.running),
+}));
+const __VLS_38 = __VLS_37({
+    ...{ 'onClick': {} },
+    type: "primary",
+    loading: (__VLS_ctx.store.running),
+}, ...__VLS_functionalComponentArgsRest(__VLS_37));
+let __VLS_40;
+let __VLS_41;
+let __VLS_42;
+const __VLS_43 = {
     onClick: (__VLS_ctx.send)
 };
-__VLS_32.slots.default;
-var __VLS_32;
+__VLS_39.slots.default;
+var __VLS_39;
 var __VLS_3;
+const __VLS_44 = {}.ElDrawer;
+/** @type {[typeof __VLS_components.ElDrawer, typeof __VLS_components.elDrawer, typeof __VLS_components.ElDrawer, typeof __VLS_components.elDrawer, ]} */ ;
+// @ts-ignore
+const __VLS_45 = __VLS_asFunctionalComponent(__VLS_44, new __VLS_44({
+    modelValue: (__VLS_ctx.traceVisible),
+    title: "Trace",
+    direction: "rtl",
+    size: "480px",
+}));
+const __VLS_46 = __VLS_45({
+    modelValue: (__VLS_ctx.traceVisible),
+    title: "Trace",
+    direction: "rtl",
+    size: "480px",
+}, ...__VLS_functionalComponentArgsRest(__VLS_45));
+__VLS_47.slots.default;
+/** @type {[typeof TracePanel, ]} */ ;
+// @ts-ignore
+const __VLS_48 = __VLS_asFunctionalComponent(TracePanel, new TracePanel({}));
+const __VLS_49 = __VLS_48({}, ...__VLS_functionalComponentArgsRest(__VLS_48));
+var __VLS_47;
 /** @type {__VLS_StyleScopedClasses['panel-card']} */ ;
 /** @type {__VLS_StyleScopedClasses['header-line']} */ ;
 /** @type {__VLS_StyleScopedClasses['actions']} */ ;
@@ -193,8 +236,10 @@ var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
+            TracePanel: TracePanel,
             store: store,
             input: input,
+            traceVisible: traceVisible,
             formatTime: formatTime,
             send: send,
             onKeydown: onKeydown,

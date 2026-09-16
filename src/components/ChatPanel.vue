@@ -5,6 +5,7 @@
         <span>Conversation</span>
         <div class="actions">
           <el-button size="small" @click="store.clearConversation">新会话</el-button>
+          <el-button size="small" @click="traceVisible = true">Trace</el-button>
           <el-button size="small" type="danger" plain :disabled="!store.running" @click="store.stopStream">停止</el-button>
         </div>
       </div>
@@ -33,15 +34,21 @@
       <el-button type="primary" :loading="store.running" @click="send">发送</el-button>
     </div>
   </el-card>
+
+  <el-drawer v-model="traceVisible" title="Trace" direction="rtl" size="480px">
+    <TracePanel />
+  </el-drawer>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import { useAgentStore } from "../stores/agent";
+import TracePanel from "./TracePanel.vue";
 
 const store = useAgentStore();
 const input = ref("");
+const traceVisible = ref(false);
 
 function formatTime(value: string) {
   return new Date(value).toLocaleString();

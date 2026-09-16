@@ -13,7 +13,11 @@ export default defineConfig(({ mode }) => {
         "/api": {
           target,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, "")
+          // chat/tools/mcp 后端无 /api 前缀；rag/ping 后端本身就带 /api，不能剥掉
+          rewrite: (path) =>
+            path.startsWith("/api/rag") || path.startsWith("/api/ping")
+              ? path
+              : path.replace(/^\/api/, "")
         }
       }
     }

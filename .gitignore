@@ -6,6 +6,8 @@ package-lock.json
 # 构建产物
 dist/
 *.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 
 # 日志
 *.log
