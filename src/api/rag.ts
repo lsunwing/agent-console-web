@@ -1,3 +1,5 @@
+import { authHeaders } from "./http";
+
 export interface RagDocument {
   id: number;
   fileName: string;
@@ -25,6 +27,7 @@ export async function uploadDocument(file: File): Promise<RagDocument> {
   formData.append("file", file);
   const response = await fetch("/api/rag/documents", {
     method: "POST",
+    headers: authHeaders(),
     body: formData,
   });
   if (!response.ok) {
@@ -35,7 +38,9 @@ export async function uploadDocument(file: File): Promise<RagDocument> {
 }
 
 export async function listDocuments(): Promise<RagDocument[]> {
-  const response = await fetch("/api/rag/documents");
+  const response = await fetch("/api/rag/documents", {
+    headers: authHeaders()
+  });
   if (!response.ok) {
     throw new Error(`加载文档列表失败: ${response.status}`);
   }
@@ -43,7 +48,9 @@ export async function listDocuments(): Promise<RagDocument[]> {
 }
 
 export async function getDocument(id: number): Promise<RagDocumentDetail> {
-  const response = await fetch(`/api/rag/documents/${id}`);
+  const response = await fetch(`/api/rag/documents/${id}`, {
+    headers: authHeaders()
+  });
   if (!response.ok) {
     throw new Error(`加载文档详情失败: ${response.status}`);
   }
@@ -51,14 +58,20 @@ export async function getDocument(id: number): Promise<RagDocumentDetail> {
 }
 
 export async function deleteDocument(id: number): Promise<void> {
-  const response = await fetch(`/api/rag/documents/${id}`, { method: "DELETE" });
+  const response = await fetch(`/api/rag/documents/${id}`, {
+    method: "DELETE",
+    headers: authHeaders()
+  });
   if (!response.ok) {
     throw new Error(`删除失败: ${response.status}`);
   }
 }
 
 export async function reindexDocument(id: number): Promise<RagDocument> {
-  const response = await fetch(`/api/rag/documents/${id}/reindex`, { method: "POST" });
+  const response = await fetch(`/api/rag/documents/${id}/reindex`, {
+    method: "POST",
+    headers: authHeaders()
+  });
   if (!response.ok) {
     throw new Error(`重建索引失败: ${response.status}`);
   }
@@ -67,7 +80,9 @@ export async function reindexDocument(id: number): Promise<RagDocument> {
 
 export async function searchChunks(query: string, limit = 5): Promise<RagChunk[]> {
   const params = new URLSearchParams({ q: query, limit: String(limit) });
-  const response = await fetch(`/api/rag/search?${params}`);
+  const response = await fetch(`/api/rag/search?${params}`, {
+    headers: authHeaders()
+  });
   if (!response.ok) {
     throw new Error(`搜索失败: ${response.status}`);
   }

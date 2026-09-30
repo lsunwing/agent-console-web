@@ -14,12 +14,13 @@
     <div class="message-list">
       <div v-for="(item, index) in store.messages" :key="index" class="message-item" :class="item.role">
         <div class="meta">{{ item.role === "user" ? "用户" : "Agent" }} · {{ formatTime(item.time) }}</div>
-        <pre class="content">{{ item.content }}</pre>
+        <MarkdownContent v-if="item.role === 'agent'" :content="item.content" class="content" />
+        <div v-else class="content plain">{{ item.content }}</div>
       </div>
 
       <div v-if="store.assistantBuffer" class="message-item agent">
         <div class="meta">Agent · streaming...</div>
-        <pre class="content">{{ store.assistantBuffer }}</pre>
+        <MarkdownContent :content="store.assistantBuffer" class="content" />
       </div>
     </div>
 
@@ -45,6 +46,7 @@ import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import { useAgentStore } from "../stores/agent";
 import TracePanel from "./TracePanel.vue";
+import MarkdownContent from "./MarkdownContent.vue";
 
 const store = useAgentStore();
 const input = ref("");
@@ -76,3 +78,51 @@ function onKeydown(event: KeyboardEvent) {
   }
 }
 </script>
+
+<style scoped>
+.message-list {
+  max-height: 480px;
+  overflow: auto;
+  margin-bottom: 12px;
+}
+
+.message-item {
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.message-item.user {
+  background: #ecf5ff;
+}
+
+.message-item.agent {
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+}
+
+.meta {
+  color: #6b7280;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.content {
+  min-width: 0;
+}
+
+.content.plain {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #1f2937;
+}
+
+.composer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: end;
+}
+</style>

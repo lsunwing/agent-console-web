@@ -1,3 +1,5 @@
+import { authHeaders } from "./http";
+
 export interface McpToolDescriptor {
   name: string;
   description: string;
@@ -19,7 +21,9 @@ export interface McpServerDetail {
 }
 
 export async function fetchMcpServers(): Promise<McpServerDetail[]> {
-  const response = await fetch("/api/mcp/servers");
+  const response = await fetch("/api/mcp/servers", {
+    headers: authHeaders()
+  });
   if (!response.ok) {
     throw new Error(`加载MCP服务器列表失败: ${response.status}`);
   }

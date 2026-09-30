@@ -1,3 +1,4 @@
+import { authHeaders } from "./http";
 function parseSseBlocks(chunkBuffer) {
     const blocks = chunkBuffer.split("\n\n");
     const rest = blocks.pop() ?? "";
@@ -27,13 +28,16 @@ function parseSseBlocks(chunkBuffer) {
 export async function streamChat(payload, options) {
     const response = await fetch("/api/chat/stream", {
         method: "POST",
-        headers: {
+        headers: authHeaders({
             "Content-Type": "application/json",
             Accept: "text/event-stream"
-        },
+        }),
         body: JSON.stringify(payload),
         signal: options.signal
     });
+    if (response.status === 401) {
+        throw new Error("未登录或登录已过期，请重新登录");
+    }
     if (!response.ok || !response.body) {
         throw new Error(`流式请求失败: ${response.status}`);
     }

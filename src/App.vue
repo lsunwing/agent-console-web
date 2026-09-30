@@ -1,5 +1,7 @@
 <template>
-  <el-container class="app-root">
+  <router-view v-if="isLoginPage" />
+
+  <el-container v-else class="app-root">
     <!-- 左侧导航栏 -->
     <el-aside width="220px" class="sidebar">
       <div class="brand">
@@ -35,10 +37,7 @@
           <span class="dot green"></span>
           <span>System Online</span>
         </div>
-        <div class="sidebar-setting">
-          <el-icon><Setting /></el-icon>
-          <span>系统设置</span>
-        </div>
+        <UserCard />
       </div>
     </el-aside>
 
@@ -47,10 +46,6 @@
       <!-- 顶栏 -->
       <el-header class="top-header">
         <span class="page-title">{{ currentTitle }}</span>
-        <div class="user-info">
-          <span>Admin User</span>
-          <div class="avatar">A</div>
-        </div>
       </el-header>
 
       <!-- 内容区 -->
@@ -64,12 +59,14 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { ChatDotRound, Collection, Connection, Tools, Setting } from "@element-plus/icons-vue";
+import { ChatDotRound, Collection, Connection, Tools } from "@element-plus/icons-vue";
+import UserCard from "./components/UserCard.vue";
 
 const route = useRoute();
 const router = useRouter();
 const active = computed(() => route.path);
 const currentTitle = computed(() => (route.meta?.title as string) || "Agent Console");
+const isLoginPage = computed(() => route.path === "/login");
 
 function onSelect(path: string) {
   if (path !== route.path) {

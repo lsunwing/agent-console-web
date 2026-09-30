@@ -19,7 +19,7 @@
           <el-upload
             :show-file-list="false"
             :before-upload="handleUpload"
-            accept=".md,.txt,.log"
+            accept=".md,.txt,.log,.csv,.json,.docx,.xlsx,.pdf,.pptx"
           >
             <el-button type="primary" size="small" :loading="uploading">上传文档</el-button>
           </el-upload>
@@ -35,7 +35,7 @@
           border
           size="small"
           style="width: 100%"
-          empty-text="暂无知识库文档，请上传 .md / .txt / .log 文件"
+          empty-text="暂无知识库文档，可上传 Word / Excel / PDF / PPT / Markdown / 日志"
           @row-click="handleRowClick"
           highlight-current-row
         >
@@ -83,7 +83,7 @@
 
     <el-dialog
       v-model="detailVisible"
-      :title="detailDoc?.fileName || '文档详情'"
+      :title="detailDoc?.document.fileName || '文档详情'"
       width="min(1100px, 94vw)"
       top="4vh"
       class="rag-detail-dialog"
@@ -91,8 +91,8 @@
     >
       <div v-if="detailDoc" class="detail-info">
         <el-descriptions :column="4" size="small" border class="detail-meta">
-          <el-descriptions-item label="文件名" :span="2">{{ detailDoc.fileName }}</el-descriptions-item>
-          <el-descriptions-item label="类型">{{ detailDoc.fileType }}</el-descriptions-item>
+          <el-descriptions-item label="文件名" :span="2">{{ detailDoc.document.fileName }}</el-descriptions-item>
+          <el-descriptions-item label="类型">{{ detailDoc.document.fileType }}</el-descriptions-item>
           <el-descriptions-item label="Chunks">{{ detailDoc.chunks.length }}</el-descriptions-item>
         </el-descriptions>
         <div class="chunk-list">
